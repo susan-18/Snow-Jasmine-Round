@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="zh">
 <head>
@@ -27,6 +26,7 @@
     #demo-text {
       font-size: 2.5rem;
       transition: all 0.3s ease;
+      white-space: nowrap;
     }
 
     .slider-container {
@@ -36,28 +36,55 @@
     input[type=range] {
       width: 300px;
     }
+
+    .slider-label {
+      margin: 1rem;
+    }
   </style>
 </head>
 <body>
   <h1>雪茉圆可变字体演示</h1>
   <div id="demo-text" contenteditable="true">
-    茉莉奶白，欢迎品尝！
+    一见茉莉 心生欢喜
   </div>
 
   <div class="slider-container">
-    <label for="weightSlider">字体粗细：</label><br>
+    <label for="widthSlider" class="slider-label">字宽：</label><br>
+    <input type="range" id="widthSlider" min="75" max="150" value="100" step="1">
+  </div>
+
+  <div class="slider-container">
+    <label for="weightSlider" class="slider-label">字重：</label><br>
     <input type="range" id="weightSlider" min="100" max="900" value="400" step="1">
   </div>
 
+  <div class="slider-container">
+    <label for="slantSlider" class="slider-label">斜度：</label><br>
+    <input type="range" id="slantSlider" min="-15" max="15" value="0" step="1">
+  </div>
+
   <script>
-    const slider = document.getElementById('weightSlider');
+    const widthSlider = document.getElementById('widthSlider');
+    const weightSlider = document.getElementById('weightSlider');
+    const slantSlider = document.getElementById('slantSlider');
     const text = document.getElementById('demo-text');
 
-    slider.addEventListener('input', () => {
-      text.style.fontVariationSettings = `'wght' ${slider.value}`;
-    });
+    // 更新字体样式
+    function updateFont() {
+      text.style.fontVariationSettings = \`
+        'wdth' \${widthSlider.value},
+        'wght' \${weightSlider.value},
+        'slnt' \${slantSlider.value}
+      \`;
+    }
 
-    text.style.fontVariationSettings = `'wght' ${slider.value}`;
+    // 监听滑块事件
+    widthSlider.addEventListener('input', updateFont);
+    weightSlider.addEventListener('input', updateFont);
+    slantSlider.addEventListener('input', updateFont);
+
+    // 初始更新
+    updateFont();
   </script>
 </body>
 </html>
