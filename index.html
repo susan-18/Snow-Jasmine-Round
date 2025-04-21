@@ -1,0 +1,63 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>雪茉圆可变字体演示</title>
+  <style>
+    @font-face {
+      font-family: 'XuemoYuan';
+      src: url('雪茉圆VA-VariableVF.ttf') format('truetype');
+    }
+
+    body {
+      font-family: 'XuemoYuan', sans-serif;
+      text-align: center;
+      padding: 2rem;
+      background: #fdfdfd;
+      color: #333;
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    #demo-text {
+      font-size: 2.5rem;
+      transition: all 0.3s ease;
+    }
+
+    .slider-container {
+      margin: 2rem 0;
+    }
+
+    input[type=range] {
+      width: 300px;
+    }
+  </style>
+</head>
+<body>
+  <h1>雪茉圆可变字体演示</h1>
+  <div id="demo-text" contenteditable="true">
+    茉莉奶白，欢迎品尝！
+  </div>
+
+  <div class="slider-container">
+    <label for="weightSlider">字体粗细：</label><br>
+    <input type="range" id="weightSlider" min="100" max="900" value="400" step="1">
+  </div>
+
+  <script>
+    const slider = document.getElementById('weightSlider');
+    const text = document.getElementById('demo-text');
+
+    slider.addEventListener('input', () => {
+      text.style.fontVariationSettings = `'wght' ${slider.value}`;
+    });
+
+    text.style.fontVariationSettings = `'wght' ${slider.value}`;
+  </script>
+</body>
+</html>
